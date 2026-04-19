@@ -1,37 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Home() {
+  const [openFeature, setOpenFeature] = useState<number | null>(null);
+
   return (
     <main className="flex-1">
-      {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-foreground">
-            RESIS
-          </Link>
-          <div className="hidden md:flex items-center gap-8">
-            <Link href="/ozellikler" className="text-gray-600 hover:text-foreground transition-colors">
-              Özellikler
-            </Link>
-            <Link href="/kullanim" className="text-gray-600 hover:text-foreground transition-colors">
-              Kullanım
-            </Link>
-            <Link href="/indir" className="text-gray-600 hover:text-foreground transition-colors">
-              İndir
-            </Link>
-            <Link href="/iletisim" className="text-gray-600 hover:text-foreground transition-colors">
-              İletişim
-            </Link>
-          </div>
-          <Link
-            href="/indir"
-            className="bg-primary text-white px-5 py-2.5 rounded-lg font-medium hover:bg-primary-hover transition-colors"
-          >
-            Demo İndir
-          </Link>
-        </div>
-      </nav>
-
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-6xl mx-auto text-center">
@@ -60,7 +36,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Grid */}
+      {/* Features Grid - Clickable */}
       <section className="py-20 bg-background-secondary px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">
@@ -68,41 +44,59 @@ export default function Home() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
-              <div
+              <Link
                 key={index}
-                className="bg-white p-6 rounded-xl border border-gray-100 hover:shadow-lg transition-shadow"
+                href={feature.link}
+                className="bg-white p-6 rounded-xl border border-gray-100 hover:shadow-lg transition-shadow cursor-pointer block"
               >
                 <div className="text-3xl mb-4">{feature.icon}</div>
                 <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
                 <p className="text-gray-600 text-sm">{feature.description}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Detailed Features */}
+      {/* Detailed Features - Clickable/Expandable */}
       <section className="py-20 px-6">
-        <div className="max-w-6xl mx-auto space-y-24">
+        <div className="max-w-6xl mx-auto space-y-8">
           {detailedFeatures.map((feature, index) => (
             <div
               key={index}
-              className={`flex flex-col lg:flex-row items-center gap-12 ${
-                index % 2 === 1 ? "lg:flex-row-reverse" : ""
-              }`}
+              className="border border-gray-200 rounded-xl overflow-hidden"
             >
-              <div className="flex-1">
-                <div className="inline-block bg-blue-100 text-primary px-3 py-1 rounded-full text-sm font-medium mb-4">
-                  {feature.badge}
+              <button
+                onClick={() => setOpenFeature(openFeature === index ? null : index)}
+                className={`w-full px-8 py-6 text-left flex justify-between items-center ${
+                  openFeature === index ? "bg-primary text-white" : "bg-white hover:bg-gray-50"
+                } transition-colors`}
+              >
+                <div className="flex items-center gap-4">
+                  <span className="text-2xl">{feature.icon}</span>
+                  <div>
+                    <h3 className="text-xl font-bold">{feature.title}</h3>
+                    <p className={`text-sm ${openFeature === index ? "text-blue-100" : "text-gray-500"}`}>
+                      {feature.shortDesc}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-3xl font-bold mb-4">{feature.title}</h3>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-              <div className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl h-80 flex items-center justify-center">
-                <span className="text-gray-400">{feature.imageAlt}</span>
-              </div>
+                <span className="text-2xl">{openFeature === index ? "−" : "+"}</span>
+              </button>
+              {openFeature === index && (
+                <div className="px-8 py-6 bg-gray-50 border-t border-gray-200">
+                  <p className="text-gray-600 mb-6">{feature.description}</p>
+                  <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center mb-4">
+                    <span className="text-gray-500">Ekran görüntüsü buraya eklenecek</span>
+                  </div>
+                  <Link
+                    href="/ozellikler"
+                    className="text-primary hover:underline text-sm"
+                  >
+                    Detaylar →
+                  </Link>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -132,22 +126,6 @@ export default function Home() {
           </form>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-12 px-6 border-t">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-xl font-bold">RESIS</div>
-          <div className="flex gap-8 text-gray-600">
-            <Link href="/ozellikler" className="hover:text-foreground">Özellikler</Link>
-            <Link href="/kullanim" className="hover:text-foreground">Kullanım</Link>
-            <Link href="/indir" className="hover:text-foreground">İndir</Link>
-            <Link href="/iletisim" className="hover:text-foreground">İletişim</Link>
-          </div>
-          <div className="text-gray-500 text-sm">
-            © 2026 RESIS. Tüm hakları saklıdır.
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }
@@ -157,85 +135,107 @@ const features = [
     icon: "👥",
     title: "Cari Yönetimi",
     description: "Müşteri ve tedarikçi takibi, telefon rehberi ve mail gönderimi.",
+    link: "/ozellikler",
   },
   {
     icon: "📦",
     title: "Stok Kontrolü",
     description: "Stok, ürün ve demirbaş takibi ile depo yönetimi.",
+    link: "/ozellikler",
   },
   {
     icon: "🍽️",
     title: "Menü Sistemi",
     description: "Kolay menü oluşturma, kategori ve fiyat yönetimi.",
+    link: "/ozellikler",
   },
   {
     icon: "💰",
     title: "Kasa & Banka",
     description: "Gelir-gider takibi, banka işlemleri ve raporlama.",
+    link: "/ozellikler",
   },
   {
     icon: "📊",
     title: "Detaylı Raporlar",
     description: "Satış, stok ve finansal raporların tamamı.",
+    link: "/ozellikler",
   },
   {
     icon: "🏭",
     title: "Üretim",
     description: "Reçete yönetimi ve üretim bildirimi.",
+    link: "/ozellikler",
   },
   {
     icon: "📄",
     title: "Fatura & İrsaliye",
     description: "Alış-satış fatura ve irsaliye işlemleri.",
+    link: "/ozellikler",
   },
   {
     icon: "👤",
     title: "Kullanıcı Yönetimi",
     description: "Personel tanımlama ve yetkilendirme sistemi.",
+    link: "/ozellikler",
   },
 ];
 
 const detailedFeatures = [
   {
-    badge: "Cari Yönetimi",
-    title: "Müşterilerinizi Tek Platformda Yönetin",
+    icon: "👥",
+    title: "Cari Yönetimi",
+    shortDesc: "Müşteri ve tedarikçi takibi",
     description:
-      "Cari kartları oluşturun, telefon rehberi oluşturun ve toplu mail gönderin. Müşteri bakiyelerini ve işlem geçmişini anlık takip edin.",
-    imageAlt: "Cari Yönetimi",
+      "Cari kartları oluşturun, telefon rehberi oluşturun ve toplu mail gönderin. Müşteri bakiyelerini ve işlem geçmişini anlık takip edin. Cari türü (müşteri, tedarikçi, personel) belirleyebilir, fatura adresi, şehir, ülke bilgilerini kaydedebilirsiniz. Cari bakiye ekstresi ve detaylı işlem geçmişi raporları alabilirsiniz.",
   },
   {
-    badge: "Stok Yönetimi",
-    title: "Stoklarınızı Kontrol Altında Tutun",
+    icon: "📦",
+    title: "Stok Yönetimi",
+    shortDesc: "Stok, ürün ve demirbaş takibi",
     description:
-      "Stok giriş-çıkış, virman ve devir işlemlerini yapın. Kategorilere göre ürünleri gruplayın ve minimum-maksimum seviye uyarıları alın.",
-    imageAlt: "Stok Yönetimi",
+      "Stok giriş-çıkış, virman ve devir işlemlerini yapın. Kategorilere göre ürünleri gruplayın ve minimum-maksimum seviye uyarıları alın. Depo bazlı stok takibi yapın. Birden fazla depo tanımlayabilir ve stokları depolar arası transfer edebilirsiniz.",
   },
   {
-    badge: "Menü Sistemi",
-    title: "Menülerinizi Kolayca Oluşturun",
+    icon: "🍽️",
+    title: "Menü Sistemi",
+    shortDesc: "Kolay menü oluşturma ve yönetimi",
     description:
-      "Menü tanımlama, kategori yönetimi ve fiyat güncelleme. Muadil ürün tanımlama ile müşteri tercihlerine göre esneklik sağlayın.",
-    imageAlt: "Menü Sistemi",
+      "Menü tanımlama, kategori yönetimi ve fiyat güncelleme yapın. Muadil ürün tanımlama ile müşteri tercihlerine esneklik sağlayın (örn: kola yerine ayran). Kategorilere göre (İçecekler, Pizzalar, Salon) gruplayın. Menü içeriğine alternatif ürünler ekleyin.",
   },
   {
-    badge: "Kasa & Banka",
-    title: "Finansal İşlemleriniz Tek Yerden",
+    icon: "💰",
+    title: "Kasa & Banka",
+    shortDesc: "Finansal işlemler",
     description:
-      "Nakit tahsilat ve ödeme, çek işlemleri, banka transferleri ve personel maaş ödemeleri. Tüm finansal hareketleri kayıt altına alın.",
-    imageAlt: "Kasa & Banka",
+      "Nakit tahsilat ve ödemeleri kaydedin. Çek/senet işlemlerini takip edin. Banka hesaplarınızı tanımlayın. Kredi kartı tahsilatlarını kaydedin. Kasalar arası transfer yapın. Günlük kasa raporları alın.",
   },
   {
-    badge: "Raporlama",
-    title: "İşletmenizi Verilerle Analiz Edin",
+    icon: "📊",
+    title: "Raporlama",
+    shortDesc: "Detaylı raporlar",
     description:
-      "Cari, stok, ürün, menü, kampanya ve satış raporları. Detaylı finansal analiz ve dışa aktarma özellikleri.",
-    imageAlt: "Raporlama",
+      "Cari raporları (bakiye, ekstresi, telefon). Stok raporları (durum, seviye, hareket). Satış raporları (ürün, garson, ödeme şekli). Finansal raporlar (kasa, banka, gelir-gider). Excel ve PDF dışa aktarma özellikleri.",
   },
   {
-    badge: "Kullanıcı Yönetimi",
-    title: "Ekipinizi Etkili Yönetin",
+    icon: "🏭",
+    title: "Üretim",
+    shortDesc: "Reçete ve üretim yönetimi",
     description:
-      "Personel tanımlama, kullanıcı yetkilendirme ve görev dağılımı. Her kullanıcıya özel erişim hakları belirleyin.",
-    imageAlt: "Kullanıcı Yönetimi",
+      "Her ürün için reçete tanımlayın. Hangi stokların ne kadar kullanılacağını belirleyin. Üretim bildirimi ile stok çıkışlarını otomatik yapın. Üretim raporları ile maliyet analizi yapın.",
+  },
+  {
+    icon: "📄",
+    title: "Fatura & İrsaliye",
+    shortDesc: "Fatura ve irsaliye işlemleri",
+    description:
+      "Alış ve satış faturaları düzenleyin. İrsaliye işlemlerini yapın. KDV ve iskonto hesaplayın. Fatura ve irsaliye raporları alın. Cari bazlı faturalaştırma yapın.",
+  },
+  {
+    icon: "👤",
+    title: "Kullanıcı Yönetimi",
+    shortDesc: "Personel ve yetkilendirme",
+    description:
+      "Personel tanımlayın. Kullanıcı adı ve şifre atayın. Her kullanıcıya özel yetki seviyeleri belirleyin. Garson, kasiyer, yönetici gibi rol tanımları yapın. Arka plan ve ön plan kullanıcı izinlerini ayrı ayrı düzenleyin.",
   },
 ];

@@ -1,8 +1,6 @@
-import Link from "next/link";
-
 export default function Ozellikler() {
   return (
-    <main className="flex-1 pt-20">
+    <main className="flex-1">
       <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold mb-6">Özellikler</h1>
@@ -22,20 +20,6 @@ export default function Ozellikler() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-12 px-6 border-t mt-20">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-xl font-bold">RESIS</div>
-          <div className="flex gap-8 text-gray-600">
-            <Link href="/ozellikler">Özellikler</Link>
-            <Link href="/kullanim">Kullanım</Link>
-            <Link href="/indir">İndir</Link>
-            <Link href="/iletisim">İletişim</Link>
-          </div>
-          <div className="text-gray-500 text-sm">© 2026 RESIS. Tüm hakları saklıdır.</div>
-        </div>
-      </footer>
     </main>
   );
 }
