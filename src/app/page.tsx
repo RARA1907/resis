@@ -108,7 +108,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-white mb-4">
             Hemen Denemeye Başlayın
           </h2>
-          <p className="text-blue-100 text-lg mb-8">
+          <p className="text-red-100 text-lg mb-8">
             500+ işletme tarafından tercih edilen RESIS'i siz de deneyin.
           </p>
           <form className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
