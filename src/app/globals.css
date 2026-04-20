@@ -6,28 +6,36 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 
-  --color-background: #fafaf9;
+  /* Design System - Yeni Renk Paleti */
+  --color-ink: #0b0b0a;
+  --color-primary: #e63946;
+  --color-primary-fg: #ffffff;
+  --color-primary-soft: rgba(230, 57, 70, 0.08);
+  --color-accent: #ffd500;
   --color-surface: #ffffff;
   --color-surface-2: #f4f4f2;
   --color-border: #e7e5e2;
-  --color-foreground: #0f0f0e;
+  --color-foreground: #0b0b0a;
+  --color-foreground-inverse: #f5f5f3;
   --color-muted: #6b6965;
-  --color-primary: #e63946;
-  --color-primary-fg: #ffffff;
-  --color-accent: #ffd500;
   --color-success: #22c55e;
   --color-error: #ef4444;
   --color-warning: #f59e0b;
+
+  /* Legacy tokens for compatibility */
+  --color-background: var(--color-surface-2);
 
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 16px;
   --radius-xl: 24px;
+  --radius-2xl: 32px;
 
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.12);
   --shadow-primary: 0 8px 24px rgba(230, 57, 70, 0.28);
+  --shadow-window: 0 32px 64px rgba(0,0,0,0.35);
 }
 
 :root {
@@ -36,7 +44,7 @@
 
 .dark {
   color-scheme: dark;
-  --color-background: #0b0b0a;
+  --color-ink: #0b0b0a;
   --color-surface: #151513;
   --color-surface-2: #1f1f1c;
   --color-border: #2a2a26;
@@ -44,14 +52,12 @@
   --color-muted: #9a968f;
   --color-primary: #ff4e5c;
   --color-primary-fg: #0b0b0a;
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.6);
+  --color-foreground-inverse: #0b0b0a;
 }
 
 html,
 body {
-  background-color: var(--color-background);
+  background-color: var(--color-surface-2);
   color: var(--color-foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -71,12 +77,23 @@ a {
   color: inherit;
 }
 
+/* Typography utilities */
 .section-label {
+  font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-primary);
+}
+
+.section-label-accent {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
 }
 
 .kinetic {
@@ -85,6 +102,7 @@ a {
   line-height: 0.95;
 }
 
+/* Animation keyframes */
 @keyframes accordion-down {
   from { height: 0; opacity: 0; }
   to { height: var(--radix-accordion-content-height); opacity: 1; }
@@ -95,6 +113,22 @@ a {
   to { height: 0; opacity: 0; }
 }
 
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(230, 57, 70, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(230, 57, 70, 0.5); }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

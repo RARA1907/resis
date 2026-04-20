@@ -17,6 +17,16 @@ export const scaleIn: Variants = {
   visible: { opacity: 1, scale: 1, transition: easeOut },
 };
 
+export const slideLeft: Variants = {
+  hidden: { opacity: 0, x: -24 },
+  visible: { opacity: 1, x: 0, transition: easeOut },
+};
+
+export const slideRight: Variants = {
+  hidden: { opacity: 0, x: 24 },
+  visible: { opacity: 1, x: 0, transition: easeOut },
+};
+
 export const stagger: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
