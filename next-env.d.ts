@@ -1,7 +1,6 @@
 /// <reference types="next" />
-/// <reference types="next/image" />
+/// <reference types="next/image-types/global" />
+import "./.next/types/routes.d.ts";
 
-declare module "*.png" {
-  const value: string;
-  export default value;
-}
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/app/api-reference/config/typescript for more information.
