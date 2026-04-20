@@ -63,3 +63,34 @@ export function basitArama(soru: string, kb: KBChunk[], limit = 4): KBChunk[] {
     .slice(0, limit)
     .map((s) => s.chunk);
 }
+
+export function getSuggestedQuestions(soru: string): string[] {
+  const q = soru.toLocaleLowerCase("tr-TR");
+  
+  if (q.includes("kurulum") || q.includes("kurulum ne kadar")) {
+    return ["Sistem gereksinimleri neler?", "Veri taşıma yapılır mı?", "Eğitim veriliyor mu?"];
+  }
+  if (q.includes("fiyat") || q.includes("ücret") || q.includes("maliyet")) {
+    return ["Lisans modeli nedir?", "Destek ücreti var mı?", "Güncelleme ücretli mi?"];
+  }
+  if (q.includes("yemek çeki") || q.includes("multinet") || q.includes("sodexo")) {
+    return ["Hangi çekler entegre?", "Komisyon oranları nedir?", "Gunluk rapor alınır mı?"];
+  }
+  if (q.includes("modül") || q.includes("özellik")) {
+    return ["EPOS modülü nedir?", "Stok modülü nasıl çalışır?", "CRM özellikleri neler?"];
+  }
+  if (q.includes("demo") || q.includes("deneme")) {
+    return ["Demo süresi ne kadar?", "Uzak bağlantıyla gösterim yapılır mı?", "Referans müşteri var mı?"];
+  }
+  if (q.includes("referans") || q.includes("müşteri")) {
+    return ["Kaç işletmede kullanılıyor?", "Zincir restoranlar kullanıyor mu?", "Sektörler neler?"];
+  }
+  if (q.includes("stok") || q.includes("maliyet") || q.includes("envanter")) {
+    return ["Reçete yönetimi var mı?", "Fire takibi yapılır mı?", "Otomatik stok düşümü nedir?"];
+  }
+  if (q.includes("rapor") || q.includes("analiz")) {
+    return ["Günlük raporlar neler?", "Personel performansı takip edilir mi?", "Excel export var mı?"];
+  }
+  
+  return ["Kurulum ne kadar sürer?", "Hangi sektörlere uygun?", "Teklif almak istiyorum"];
+}

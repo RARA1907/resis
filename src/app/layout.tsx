@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/shared/navbar";
 import { Footer } from "@/components/shared/footer";
+import { CookieBanner } from "@/components/shared/cookie-banner";
 import { ChatbotWidget } from "@/components/features/chatbot-widget";
 import { SITE } from "@/lib/utils";
 import "./globals.css";
@@ -63,6 +64,7 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
           <ChatbotWidget />
+          <CookieBanner />
         </ThemeProvider>
       </body>
     </html>
