@@ -23,7 +23,7 @@ const hazirSorular = [
 ];
 
 export function ChatbotWidget() {
-  const [acik, setAcik] = useState(false);
+  const [acik, setAcik] = useState(true);
   const [mesajlar, setMesajlar] = useState<Mesaj[]>([ilkMesaj]);
   const [girdi, setGirdi] = useState("");
   const [yukleniyor, setYukleniyor] = useState(false);

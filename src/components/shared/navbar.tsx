@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { href: "/modul/epos", label: "Modüller" },
   { href: "/ekranlar", label: "Ekranlar" },
+  { href: "/kullanim", label: "Kullanım" },
   { href: "/sss", label: "SSS" },
   { href: "/referanslar", label: "Referanslar" },
   { href: "/blog", label: "Blog" },
